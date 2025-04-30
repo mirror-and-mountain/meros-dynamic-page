@@ -16,7 +16,5 @@
             "MM\\Meros\\DynamicPage\\": "src/"
         }
     },
-    "require": {
-        "mirror-and-mountain/meros-framework": "dev-main"
-    }
+    "require": {}
 }
