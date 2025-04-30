@@ -8,6 +8,7 @@ class Feature extends AbstractFeature
 {
     protected function configure(): void
     {
-        
+        $this->hasAssets     = true;
+        $this->hasComponents = true;
     }
 }
