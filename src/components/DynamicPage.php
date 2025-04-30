@@ -1,0 +1,24 @@
+<?php
+
+namespace MM\Meros\App\Livewire;
+
+use Livewire\Component;
+
+class DynamicPage extends Component
+{
+    private array $blocks;
+
+    public function mount()
+    {
+        global $_wp_current_template_content;
+
+        $this->blocks = parse_blocks($_wp_current_template_content);
+    }
+    
+    public function render()
+    {
+        return view('livewire.page', [
+            'blocks' => $this->blocks
+        ]);
+    }
+}

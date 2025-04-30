@@ -1,0 +1,21 @@
+{
+    "name": "mirror-and-mountain/meros-dynamic-page",
+    "description": "Pending",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "tmw-mm",
+            "email": "toby@mirrorandmountain.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "MM\\Meros\\DynamicPage\\": "src/"
+        }
+    },
+    "require": {
+        "mirror-and-mountain/meros-framework": "dev-main"
+    }
+}

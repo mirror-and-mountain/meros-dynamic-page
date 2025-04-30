@@ -1,0 +1,1 @@
+document.addEventListener("livewire:navigated","configureNavElements"),document.addEventListener("DOMContentLoaded","configureNavElements");
