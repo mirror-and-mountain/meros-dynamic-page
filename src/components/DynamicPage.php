@@ -1,6 +1,6 @@
 <?php
 
-namespace MM\Meros\App\Livewire;
+namespace MM\Meros\DynamicPage\Components;
 
 use Livewire\Component;
 
