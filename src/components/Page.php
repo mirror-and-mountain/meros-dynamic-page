@@ -4,7 +4,7 @@ namespace MM\Meros\DynamicPage\Components;
 
 use Livewire\Component;
 
-class DynamicPage extends Component
+class Page extends Component
 {
     private array $blocks;
 

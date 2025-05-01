@@ -4,6 +4,10 @@
             @persist('meros-carousel')
                 {!! render_block($block) !!}
             @endpersist
+        @elseif($block['blockName'] === 'meros/dynamic-header')
+            @persist('meros-dynamic-header')
+                {!! render_block($block) !!}
+            @endpersist
         @elseif($block['blockName'] === 'core/post-content')
             @php
                 $filtered = apply_filters('the_content', render_block($block));

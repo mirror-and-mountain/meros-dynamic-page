@@ -15,7 +15,8 @@ class Feature extends AbstractFeature
         add_filter('template_include', function ( $template ) {
             if ( Str::endsWith($template, 'template-canvas.php') ) {
                 $template_html    = get_the_block_template_html();
-                $dynamic_template = load_template( __DIR__ . '/template/meros-dp-template.php', true, ['template_markup' => $template_html] );
+                $template_path    = wp_normalize_path( __DIR__ . '/template/meros-dp-template.php' );
+                $dynamic_template = load_template( $template_path, true, ['template_markup' => $template_html] );
 
                 return $dynamic_template;
             }

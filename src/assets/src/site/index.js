@@ -25,5 +25,5 @@ function configureNavElements() {
     });
 };
 
-document.addEventListener('livewire:navigated', 'configureNavElements');
-document.addEventListener('DOMContentLoaded', 'configureNavElements');
+document.addEventListener('livewire:navigated', configureNavElements);
+document.addEventListener('DOMContentLoaded', configureNavElements);
