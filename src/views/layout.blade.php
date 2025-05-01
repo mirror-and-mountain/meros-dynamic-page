@@ -8,7 +8,7 @@
     </head>
     <body {{ body_class() }} >
         <!-- MM Dynamic Page Livewire Component -->
-        <livewire:dynamic-page />
+        <livewire:meros_dynamic_page.dynamic-page />
         {{ wp_footer() }}
     </body>
 </html>

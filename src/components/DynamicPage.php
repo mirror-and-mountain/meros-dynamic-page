@@ -17,7 +17,7 @@ class DynamicPage extends Component
     
     public function render()
     {
-        return view('livewire.page', [
+        return view('meros_dynamic_page::page', [
             'blocks' => $this->blocks
         ]);
     }
