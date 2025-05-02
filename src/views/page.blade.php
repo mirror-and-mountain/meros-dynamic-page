@@ -4,8 +4,8 @@
             @persist('meros-carousel')
                 {!! render_block($block) !!}
             @endpersist
-        @elseif($block['blockName'] === 'meros/dynamic-header')
-            @persist('meros-dynamic-header')
+        @elseif(isset($block['attrs']['slug']) && $block['attrs']['slug'] === 'header')
+            @persist('header')
                 {!! render_block($block) !!}
             @endpersist
         @elseif($block['blockName'] === 'core/post-content')
