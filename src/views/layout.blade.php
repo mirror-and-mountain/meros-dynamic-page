@@ -11,6 +11,6 @@
         <!-- MM Dynamic Page Livewire Component -->
         <livewire:meros_dynamic_page.page />
         {{ wp_footer() }}
-        @livewireScriptConfig
+        @livewireScripts
     </body>
 </html>
