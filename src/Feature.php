@@ -9,8 +9,9 @@ class Feature extends AbstractFeature
 {
     protected function configure(): void
     {
-        $this->hasAssets     = true;
-        $this->hasComponents = true;
+        $this->hasAssets          = true;
+        $this->putScriptsInFooter = true;
+        $this->hasComponents      = true;
 
         add_filter('template_include', function ( $template ) {
             if ( Str::endsWith($template, 'template-canvas.php') ) {
