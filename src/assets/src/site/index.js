@@ -1,8 +1,11 @@
+let navigating = false;
 
 function configureNavElements() {
     const hyperlinks = Array.from(document.querySelectorAll('a[href]'));
 
     hyperlinks.forEach((link) => {
+        if (link.dataset.livewireNavBound === 'true') return;
+
         const href = link.getAttribute('href');
         if (
             link.target === '_blank' ||
@@ -17,13 +20,20 @@ function configureNavElements() {
             return;
         }
 
-        // Add navigation handler
+        link.dataset.livewireNavBound = 'true';
+
         link.addEventListener('click', (e) => {
             e.preventDefault();
+            if (navigating) return;
+            navigating = true;
             Livewire.navigate(href);
         });
     });
-};
+}
 
-document.addEventListener('livewire:navigated', configureNavElements);
+document.addEventListener('livewire:navigated', () => {
+    navigating = false;
+    configureNavElements();
+});
+
 document.addEventListener('DOMContentLoaded', configureNavElements);
