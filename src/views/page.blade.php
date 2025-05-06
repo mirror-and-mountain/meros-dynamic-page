@@ -1,11 +1,11 @@
 <div class="wp-site-blocks">
     @foreach($blocks as $block)
-        @if($block['blockName'] === 'meros/carousel')
-            @persist('meros-carousel')
+        @if(isset($block['attrs']['slug']) && $block['attrs']['slug'] === 'header')
+            @persist('header')
                 {!! render_block($block) !!}
             @endpersist
-        @elseif(isset($block['attrs']['slug']) && $block['attrs']['slug'] === 'header')
-            @persist('header')
+        @elseif($block['blockName'] === 'meros/carousel')
+            @persist('meros-carousel')
                 {!! render_block($block) !!}
             @endpersist
         @elseif($block['blockName'] === 'core/post-content')

@@ -1,5 +1,7 @@
 (() => {
-    let navigating = false;
+    let navigating   = false;
+    let pendingHash  = null;
+    let savedScrollY = 0;
 
     function configureNavElements() {
         const hyperlinks = Array.from(document.querySelectorAll('a[href]'));
@@ -15,7 +17,6 @@
             ) return;
 
             let linkUrl;
-
             try {
                 linkUrl = new URL(href, window.location.origin);
                 if (linkUrl.origin !== window.location.origin) return;
@@ -29,8 +30,22 @@
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (navigating) return;
+
+                // Save current scroll to history state
+                try {
+                    history.replaceState(
+                        Object.assign({}, history.state, { scrollY: window.scrollY }),
+                        ''
+                    );
+                } catch (err) {
+                    // Some browsers restrict this in sandboxed environments
+                }
+
+                // Save hash for post-navigation scroll
+                pendingHash = linkUrl.hash || null;
                 navigating = true;
-                Livewire.navigate(href);
+
+                Livewire.navigate(linkUrl.pathname + linkUrl.search);
             });
         });
     }
@@ -38,7 +53,38 @@
     document.addEventListener('livewire:navigated', () => {
         navigating = false;
         configureNavElements();
+
+        setTimeout(() => {
+            if (pendingHash) {
+                const el = document.querySelector(pendingHash);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                }
+                pendingHash = null;
+            } else {
+                const scrollY = history.state?.scrollY ?? 0;
+                window.scrollTo({ top: scrollY, behavior: 'auto' });
+            }
+        }, 50);
     });
 
-    document.addEventListener('DOMContentLoaded', configureNavElements);
+    // Restore scroll position when using browser back/forward buttons
+    window.addEventListener('popstate', () => {
+        setTimeout(() => {
+            const scrollY = history.state?.scrollY ?? 0;
+            window.scrollTo({ top: scrollY, behavior: 'auto' });
+        }, 50);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        configureNavElements();
+
+        // Store initial scroll position in history state
+        try {
+            history.replaceState(
+                Object.assign({}, history.state, { scrollY: window.scrollY }),
+                ''
+            );
+        } catch (err) {}
+    });
 })();
