@@ -13,6 +13,17 @@ class Feature extends Extension
         $this->putScriptsInFooter = true;
         $this->hasComponents      = true;
 
+    }
+
+    protected function override(): void
+    {
+        // User overrides can go here.
+    }
+
+    final public function initialise(): void
+    {
+        parent::initialise();
+
         add_filter('template_include', function ( $template ) {
             if ( Str::endsWith($template, 'template-canvas.php') ) {
                 $template_html    = get_the_block_template_html();
@@ -22,10 +33,5 @@ class Feature extends Extension
                 return $dynamic_template;
             }
         }, 10, 3);
-    }
-
-    protected function override(): void
-    {
-
     }
 }
