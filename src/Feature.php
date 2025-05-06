@@ -3,11 +3,11 @@
 namespace MM\Meros\DynamicPage;
 
 use Illuminate\Support\Str;
-use MM\Meros\Contracts\Feature as AbstractFeature;
+use MM\Meros\Contracts\Extension;
 
-class Feature extends AbstractFeature
+class Feature extends Extension
 {
-    protected function configure(): void
+    final protected function configure(): void
     {
         $this->hasAssets          = true;
         $this->putScriptsInFooter = true;
@@ -22,5 +22,10 @@ class Feature extends AbstractFeature
                 return $dynamic_template;
             }
         }, 10, 3);
+    }
+
+    protected function override(): void
+    {
+
     }
 }
