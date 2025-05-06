@@ -18,3 +18,8 @@
         @endif
     @endforeach
 </div>
+@script
+    <script>
+        window.merosWiredPostId = $wire.postId;
+    </script>
+@endscript

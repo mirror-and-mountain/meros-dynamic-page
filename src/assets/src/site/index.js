@@ -37,13 +37,15 @@
                         Object.assign({}, history.state, { scrollY: window.scrollY }),
                         ''
                     );
-                } catch (err) {
-                    // Some browsers restrict this in sandboxed environments
-                }
+                } catch (err) {}
 
-                // Save hash for post-navigation scroll
-                pendingHash = linkUrl.hash || null;
-                navigating = true;
+                savedScrollY = window.scrollY;
+                pendingHash  = linkUrl.hash || null;
+                navigating   = true;
+
+                // Lock scroll to prevent jump-to-top flicker
+                document.documentElement.style.scrollBehavior = 'auto';
+                window.scrollTo({ top: savedScrollY });
 
                 Livewire.navigate(linkUrl.pathname + linkUrl.search);
             });
@@ -55,6 +57,8 @@
         configureNavElements();
 
         setTimeout(() => {
+            document.documentElement.style.scrollBehavior = ''; // Reset scroll behavior
+
             if (pendingHash) {
                 const el = document.querySelector(pendingHash);
                 if (el) {
@@ -62,13 +66,13 @@
                 }
                 pendingHash = null;
             } else {
-                const scrollY = history.state?.scrollY ?? 0;
+                const scrollY = history.state?.scrollY ?? savedScrollY ?? 0;
                 window.scrollTo({ top: scrollY, behavior: 'auto' });
             }
         }, 50);
     });
 
-    // Restore scroll position when using browser back/forward buttons
+    // Restore scroll on browser back/forward
     window.addEventListener('popstate', () => {
         setTimeout(() => {
             const scrollY = history.state?.scrollY ?? 0;
@@ -79,7 +83,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         configureNavElements();
 
-        // Store initial scroll position in history state
+        // Store initial scroll position
         try {
             history.replaceState(
                 Object.assign({}, history.state, { scrollY: window.scrollY }),
