@@ -15,5 +15,11 @@
             "MM\\Meros\\DynamicPage\\": "src/"
         }
     },
-    "require": {}
+    "require": {},
+    "extra": {
+        "meros": {
+            "name": "MerosDynamicPage",
+            "allowOverrides": true
+        }
+    }
 }
