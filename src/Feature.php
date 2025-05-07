@@ -2,8 +2,10 @@
 
 namespace MM\Meros\DynamicPage;
 
-use Illuminate\Support\Str;
 use MM\Meros\Contracts\Extension;
+use MM\Meros\Helpers\Livewire;
+
+use Illuminate\Support\Str;
 
 class Feature extends Extension
 {
@@ -24,6 +26,8 @@ class Feature extends Extension
         parent::initialise();
 
         if ( $this->enabled ) {
+            Livewire::injectAssets();
+
             add_filter('template_include', function ( $template ) {
                 if ( Str::endsWith($template, 'template-canvas.php') ) {
                     $template_html    = get_the_block_template_html();

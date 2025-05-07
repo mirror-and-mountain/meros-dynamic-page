@@ -1,4 +1,5 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "mirror-and-mountain/meros-dynamic-page",
     "description": "Pending",
     "type": "library",
@@ -9,17 +10,18 @@
             "email": "toby@mirrorandmountain.com"
         }
     ],
-    "minimum-stability": "stable",
+    "require": {},
     "autoload": {
         "psr-4": {
             "MM\\Meros\\DynamicPage\\": "src/"
         }
     },
-    "require": {},
     "extra": {
         "meros": {
             "name": "MerosDynamicPage",
             "allowOverrides": true
         }
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
