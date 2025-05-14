@@ -19,6 +19,7 @@
     "extra": {
         "meros": {
             "name": "MerosDynamicPage",
+            "class": "MM\\Meros\\DynamicPage\\Feature",
             "allowOverrides": true
         }
     },
