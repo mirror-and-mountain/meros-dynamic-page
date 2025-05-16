@@ -14,7 +14,7 @@ class Feature extends Extension
         $this->putScriptsInFooter = true;
         $this->hasComponents      = true;
 
-        add_filter('meros_' . $this->name . '_user_switch_label', 
+        add_filter($this->name . '_user_switch_label', 
             function ( $value ) {
                 return 'Enable Single Page Loading.'; 
             }
