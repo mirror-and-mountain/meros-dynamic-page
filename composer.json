@@ -1,7 +1,7 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
     "name": "mirror-and-mountain/meros-dynamic-page",
-    "description": "Pending",
+    "description": "SPA loading for Meros powered Wordpress themes.",
     "type": "library",
     "license": "MIT",
     "authors": [
