@@ -1,3 +1,6 @@
+/**
+ * Identifies internal links and preps them for wire:navigate.
+ */
 (() => {
     let navigating = false;
 
