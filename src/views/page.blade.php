@@ -1,6 +1,6 @@
 <div class="wp-site-blocks">
     @foreach($blocks as $block)
-        @if(isset($block['attrs']['slug']) && $block['attrs']['slug'] === 'header')
+        @if($block['blockName'] === 'meros/dynamic-header')
             @persist('header')
                 {!! render_block($block) !!}
             @endpersist
