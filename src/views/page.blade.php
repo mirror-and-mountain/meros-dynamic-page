@@ -8,8 +8,11 @@
                 {!! render_block($block) !!}
             @endpersist
         @elseif($block['blockName'] === 'meros/carousel')
+            @php
+                $carouselId = $block['attrs']['carouselId'] ?? 'carousel-no-id';
+            @endphp
             @if($block['attrs']['spaOptions']['persist'] ?? true)
-                @persist('meros-carousel')
+                @persist("meros-carousel-{$carouselId}")
                     {!! render_block($block) !!}
                 @endpersist
             @else
