@@ -28,6 +28,13 @@
                     @else
                         {!! render_block($inner_block) !!}
                     @endif
+                @elseif($inner_block['blockName'] === 'meros/dynamic-header' || 
+                        ($inner_block['blockName'] === 'core/pattern' && $inner_block['attrs']['slug'] === 'meros-blocks/meros-blocks-header'))
+                    @persist('header')
+                        {!! render_block($inner_block) !!}
+                    @endpersist
+                @else
+                    {!! render_block($inner_block) !!}
                 @endif
             @endforeach
 
