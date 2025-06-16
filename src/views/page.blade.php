@@ -1,7 +1,8 @@
 <div class="wp-site-blocks">
     @foreach($blocks as $block)
-        @if($block['blockName'] === 'meros/dynamic-header' || 
-            ($block['blockName'] === 'core/pattern' && $block['attrs']['slug'] === 'meros-blocks/meros-blocks-header') 
+        @if($block['blockName'] === 'meros/dynamic-header' ||
+            ($block['blockName'] === 'core/template-part' && $block['attrs']['slug'] === 'header') ||
+            ($block['blockName'] === 'core/pattern' && $block['attrs']['slug'] === 'meros-theme/meros-header-navigation') 
         )
             @persist('header')
                 {!! render_block($block) !!}
@@ -29,7 +30,8 @@
                         {!! render_block($inner_block) !!}
                     @endif
                 @elseif($inner_block['blockName'] === 'meros/dynamic-header' || 
-                        ($inner_block['blockName'] === 'core/pattern' && $inner_block['attrs']['slug'] === 'meros-blocks/meros-blocks-header'))
+                        ($block['blockName'] === 'core/template-part' && $block['attrs']['slug'] === 'header') ||
+                        ($inner_block['blockName'] === 'core/pattern' && $inner_block['attrs']['slug'] === 'meros-theme/meros-header-navigation'))
                     @persist('header')
                         {!! render_block($inner_block) !!}
                     @endpersist
