@@ -35,3 +35,36 @@ add_action('enqueue_block_editor_assets', function () {
         );        
     }
 });
+
+/**
+ * Persists elements between livewire navigations if enabled
+ */
+add_filter('render_block', function ($block_content, $block) {
+    $attrs = $block['attrs'] ?? null;
+    
+    if (!is_array($attrs)) { return $block_content; }
+
+    $blocks = [
+        'core/group',
+        'meros/dynamic-header',
+        'meros/carousel'
+    ];
+
+    if (in_array($block['blockName'], $blocks) && 
+        isset($attrs['enableMerosPersist']) &&
+        isset($attrs['merosPersistID'])
+    ) {
+        $processor = new WP_HTML_Tag_Processor($block_content);
+        if ($processor->next_tag()) {
+            $processor->set_attribute('x-persist', $attrs['merosPersistID']);
+        }
+        return $processor->get_updated_html();
+    }
+
+    if (isset($block['attrs']['slug']) && $block['attrs']['slug'] === 'header') {
+        $block_content = '<div x-persist="header">' . $block_content . '</div>';
+        return $block_content;
+    }
+
+    return $block_content;
+}, 10, 2);

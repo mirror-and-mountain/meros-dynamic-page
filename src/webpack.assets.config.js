@@ -6,7 +6,7 @@ const RtlCssPlugin = require('@wordpress/scripts/plugins/rtlcss-webpack-plugin')
 
 // Dynamically create entries from `assets/src/*/index.js`
 const entries = {};
-glob.sync('./src/assets/src/*/index.js').forEach((file) => {
+glob.sync('./assets/src/*/index.js').forEach((file) => {
   const name = path.basename(path.dirname(file));
   entries[name] = path.resolve(__dirname, file);
 });
@@ -18,7 +18,7 @@ module.exports = {
 
   output: {
     ...defaultConfig.output,
-    path: path.resolve(__dirname, 'src/assets/build'),
+    path: path.resolve(__dirname, 'assets/build'),
     filename: '[name]/index.js',
     clean: true,
   },
@@ -28,7 +28,7 @@ module.exports = {
     splitChunks: {
       cacheGroups: {
         ...defaultConfig.optimization.splitChunks.cacheGroups,
-        style: false, // Disable the default style chunking
+        style: false,
       },
     },
   },
@@ -36,7 +36,7 @@ module.exports = {
   plugins: [
     ...defaultConfig.plugins.filter(
       (plugin) =>
-        !(plugin instanceof MiniCssExtractPlugin) && !(plugin instanceof RtlCssPlugin) // Filter out RtlCssPlugin as well
+        !(plugin instanceof MiniCssExtractPlugin) && !(plugin instanceof RtlCssPlugin) 
     ),
 
     new MiniCssExtractPlugin({
