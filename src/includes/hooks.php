@@ -46,6 +46,7 @@ add_filter('render_block', function ($block_content, $block) {
 
     $blocks = [
         'core/group',
+        'core/template-part',
         'meros/dynamic-header',
         'meros/carousel'
     ];

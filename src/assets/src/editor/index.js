@@ -7,6 +7,7 @@ import { Fragment } from '@wordpress/element';
 
 const addPersistAttribute = (settings, name) => {
     if (name !== 'core/group' && 
+        name !== 'core/template-part' &&
         name !== 'meros/dynamic-header' &&
         name !== 'meros/carousel'
     ) return settings;
@@ -29,6 +30,7 @@ wp.domReady(() => {
             const { name, attributes, setAttributes } = props;
 
             if (name !== 'core/group' && 
+                name !== 'core/template-part' &&
                 name !== 'meros/dynamic-header' &&
                 name !== 'meros/carousel'
             ) {
