@@ -6,7 +6,7 @@ const RtlCssPlugin = require('@wordpress/scripts/plugins/rtlcss-webpack-plugin')
 
 // Dynamically create entries from `assets/src/*/index.js`
 const entries = {};
-glob.sync('./assets/src/*/index.js').forEach((file) => {
+glob.sync('./src/assets/src/*/index.js').forEach((file) => {
   const name = path.basename(path.dirname(file));
   entries[name] = path.resolve(__dirname, file);
 });
@@ -18,7 +18,7 @@ module.exports = {
 
   output: {
     ...defaultConfig.output,
-    path: path.resolve(__dirname, 'assets/build'),
+    path: path.resolve(__dirname, 'src/assets/build'),
     filename: '[name]/index.js',
     clean: true,
   },

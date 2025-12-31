@@ -18,9 +18,8 @@
     },
     "extra": {
         "meros": {
-            "name": "MerosDynamicPage",
-            "class": "MM\\Meros\\DynamicPage\\Feature",
-            "allowOverrides": true
+            "loader": "MerosDynamicPage",
+            "namespace": "MM\\Meros\\DynamicPage"
         }
     },
     "minimum-stability": "stable",

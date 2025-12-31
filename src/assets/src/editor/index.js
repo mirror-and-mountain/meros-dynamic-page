@@ -7,9 +7,7 @@ import { Fragment } from '@wordpress/element';
 
 const addPersistAttribute = (settings, name) => {
     if (name !== 'core/group' && 
-        name !== 'core/template-part' &&
-        name !== 'meros/dynamic-header' &&
-        name !== 'meros/carousel'
+        name !== 'core/template-part'
     ) return settings;
 
     return {
@@ -30,9 +28,7 @@ wp.domReady(() => {
             const { name, attributes, setAttributes } = props;
 
             if (name !== 'core/group' && 
-                name !== 'core/template-part' &&
-                name !== 'meros/dynamic-header' &&
-                name !== 'meros/carousel'
+                name !== 'core/template-part'
             ) {
                 return <BlockEdit {...props} />;
             }
@@ -43,7 +39,7 @@ wp.domReady(() => {
                 <Fragment>
                     <BlockEdit {...props} />
                     <InspectorControls>
-                        <PanelBody title={__('Single Page Application Behaviour', 'meros-dynamic-page')} initialOpen={true}>
+                        <PanelBody title={__('Single Page Application Behaviour', 'meros-dynamic-page')} initialOpen={false}>
                             <ToggleControl
                                 label={__('Persist Block', 'meros-dynamic-page')}
                                 checked={attributes.enableMerosPersist}
