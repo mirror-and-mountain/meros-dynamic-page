@@ -17,6 +17,20 @@ class MerosDynamicPage extends Extension
         $this->loadComponents();
         $this->loadViews();
 
+        $this->addSetting(
+            'dynamic_page_loader_color',
+            'Dynamic Page Loading Bar Colour',
+            'theme_settings',
+            'styles',
+            '',
+            '',
+            [
+                'type' => 'color',
+                'default' => '#2299dd',
+                'description' => 'Select the colour of the loading bar shown when navigating between dynamic pages.',
+            ]
+        );
+
         include __DIR__ . '/includes/hooks.php';
     }
 }

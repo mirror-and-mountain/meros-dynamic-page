@@ -15,5 +15,10 @@
 @script
     <script>
         window.merosWiredPostId = $wire.postId;
+        
+        document.documentElement.style.setProperty(
+            '--livewire-progress-bar-color', 
+            $wire.loadingBarColour
+        );
     </script>
 @endscript
