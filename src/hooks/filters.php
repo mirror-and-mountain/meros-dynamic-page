@@ -1,8 +1,5 @@
 <?php
 
-// Ensure Livewire assets are injected into the Wordpress header and footer
-\MM\Meros\Helpers\Livewire::injectAssets();
-
 /**
  * Intercepts the theme template and replaces it with our
  * template as ../template/.
@@ -19,22 +16,6 @@ add_filter('template_include', function ( $template ) {
         return $dynamic_template;
     }
 }, 10, 3);
-
-/**
- * Adds additional SPA controls to the Meros Carousel plugin in the
- * block editor.
- */
-add_action('enqueue_block_editor_assets', function () {
-    $block = \WP_Block_Type_Registry::get_instance()->get_registered('meros/carousel');
-
-    if ($block && !empty($block->editor_script_handles)) {
-        wp_add_inline_script(
-            'meros-carousel-editor-script',
-            'window.MerosDynamicPage = true;',
-            'before'
-        );        
-    }
-});
 
 /**
  * Persists elements between livewire navigations if enabled

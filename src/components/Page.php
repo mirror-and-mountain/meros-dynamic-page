@@ -3,24 +3,27 @@
 namespace MM\Meros\DynamicPage\Components;
 
 use Livewire\Component;
+use MM\Meros\DynamicPage\MerosDynamicPage;
 
 class Page extends Component
 {
     private array $blocks;
-    public ?int   $postId;
     public string $loadingBarColour;
+    public ?int   $postId;
 
     public function mount()
     {
         global $_wp_current_template_content;
         global $post;
 
+        $feature = app()->make(MerosDynamicPage::class);
+        $this->loadingBarColour = $feature->getSetting(
+            'theme_settings_styles', 
+            'dynamic_page_loader_color'
+        );
+
         $this->blocks = parse_blocks($_wp_current_template_content);
         $this->postId = isset($post) ? $post->ID : null;
-        $this->loadingBarColour = get_option(
-            'meros_meros_dynamic_page_dynamic_page_loader_color', 
-            '#2299dd'
-        );
     }
     
     public function render()
