@@ -18,7 +18,7 @@ class Page extends Component
 
         $feature = app()->make(MerosDynamicPage::class);
         $this->loadingBarColour = $feature->getSetting(
-            'theme_settings_styles', 
+            'theme_settings_scripts_and_styles', 
             'dynamic_page_loader_color'
         );
 

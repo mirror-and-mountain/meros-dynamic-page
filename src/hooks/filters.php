@@ -28,8 +28,7 @@ add_filter('render_block', function ($block_content, $block) {
     $blocks = [
         'core/group',
         'core/template-part',
-        'meros/dynamic-header',
-        'meros/carousel'
+        'meros/swiper'
     ];
 
     if (in_array($block['blockName'], $blocks) && 
@@ -43,7 +42,12 @@ add_filter('render_block', function ($block_content, $block) {
         return $processor->get_updated_html();
     }
 
-    if (isset($block['attrs']['slug']) && $block['attrs']['slug'] === 'header') {
+    if (
+        (isset($block['attrs']['slug']) && 
+        $block['attrs']['slug'] === 'header') ||
+        (isset($block['attrs']['tagName']) &&
+        $block['attrs']['tagName'] === 'header')
+    ) {
         $block_content = '<div x-persist="header">' . $block_content . '</div>';
         return $block_content;
     }

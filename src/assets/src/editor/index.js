@@ -7,7 +7,8 @@ import { Fragment } from '@wordpress/element';
 
 const addPersistAttribute = (settings, name) => {
     if (name !== 'core/group' && 
-        name !== 'core/template-part'
+        name !== 'core/template-part' &&
+        name !== 'meros/swiper'
     ) return settings;
 
     return {
@@ -25,11 +26,32 @@ wp.domReady(() => {
     // Add controls to the inspector for the group blocks
     const addPersistControl = createHigherOrderComponent((BlockEdit) => {
         return (props) => {
-            const { name, attributes, setAttributes } = props;
+            const { name, attributes, setAttributes, clientId } = props;
 
             if (name !== 'core/group' && 
-                name !== 'core/template-part'
+                name !== 'core/template-part' &&
+                name !== 'meros/swiper'
             ) {
+                return <BlockEdit {...props} />;
+            }
+
+            const isHeader = 
+                (name === 'core/template-part' && attributes.slug === 'header') ||
+                (name === 'core/group' && attributes.tagName === 'header');
+
+            if (isHeader) {
+                return <BlockEdit {...props} />;
+            }
+
+            const isInHeader = isChildOf(clientId, [
+                'core/template-part',
+                'core/group'
+            ], (parentBlock) => {
+                return (parentBlock.name === 'core/template-part' && parentBlock.attributes.slug === 'header') ||
+                    (parentBlock.name === 'core/group' && parentBlock.attributes.tagName === 'header');
+            });
+
+            if (isInHeader) {
                 return <BlockEdit {...props} />;
             }
 
@@ -51,6 +73,8 @@ wp.domReady(() => {
                                         });
                                     }
                                 }}
+                                __nextHasNoMarginBottom={true}
+                                __next40pxDefaultSize={true}
                             />
                             { attributes.enableMerosPersist === true  && (
                                 <TextControl
@@ -59,6 +83,8 @@ wp.domReady(() => {
                                     onChange={(value) => {
                                         setAttributes({ merosPersistID: value })
                                     }}
+                                    __next40pxDefaultSize={true}
+                                    __nextHasNoMarginBottom={true}
                                 />
                             )}
                         </PanelBody>
@@ -69,3 +95,37 @@ wp.domReady(() => {
     }, 'addPersistControl');
     addFilter('editor.BlockEdit', 'meros/persist-control', addPersistControl);
 });
+
+/**
+ * Checks if a block is a child of a specified parent block type.
+ *
+ * @param {string} clientId - The client ID of the block to check.
+ * @param {string|string[]} parentNames - The name(s) of the parent block to check against.
+ * @param {Function|null} logicalTest - Optional function to apply additional logic on the parent block.
+ * @returns {boolean} True if the block is a child of the specified parent, false otherwise.
+ */
+function isChildOf(clientId, parentNames, logicalTest = null) {
+    const { getBlock, getBlockParents } = wp.data.select('core/block-editor');
+    const parents = getBlockParents(clientId);
+
+    for (const parentId of parents) {
+        const parentBlock = getBlock(parentId);
+        
+        if (Array.isArray(parentNames)) {
+            if (parentBlock && parentNames.includes(parentBlock.name) &&
+                (typeof logicalTest !== 'function' || logicalTest(parentBlock) === true)
+            ) {
+                return true;
+            }
+
+
+        } else if (parentBlock &&
+            parentBlock.name === parentNames &&
+            (typeof logicalTest !== 'function' || logicalTest(parentBlock) === true)
+        ) {
+            return true;
+        }
+    }
+
+    return false;
+}
