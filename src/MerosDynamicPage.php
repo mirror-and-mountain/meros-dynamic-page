@@ -9,6 +9,7 @@ class MerosDynamicPage extends Extension {
     protected string $authorUrl = "https://merosblocks.com";
     protected string $authorSupportUrl = "https://merosblocks.com/support";
     protected string $description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua';
+    public bool $experimental = true;
 
     final protected function boot(): void {
         // Set the assets structure for this extension.
