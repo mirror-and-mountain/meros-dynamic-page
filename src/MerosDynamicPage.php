@@ -11,24 +11,12 @@ class MerosDynamicPage extends Extension {
     protected string $description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua';
     public bool $experimental = true;
 
-    final protected function boot(): void {
-        // Set the assets structure for this extension.
-        $this->assetsStructure = '/{location}/*.{extension}';
-
-        // Register filters
-        $featureFilters = MerosDynamicPageFilters::init($this->hookPrefix);
-        $featureFilters->register();
-
-        // Load assets and components
-        $this->loadAssets( true );
-        $this->loadComponents();
-        $this->loadViews();
-
-        // Add Settings
-        $this->addSettings();
+    protected function addFilters(): void {
+        $this->addFilter('template_include', [Filters::class, 'includeTemplate'], 10, 3);
+        $this->addFilter('render_block', [Filters::class, 'renderCompatibleBlocks'], 10, 2);
     }
 
-    private function addSettings(): void {
+    protected function registerSettings(): void {
         $this->addSetting(
             'dynamic_page_loader_color',
             'Dynamic Page Loading Bar Colour',
@@ -42,5 +30,14 @@ class MerosDynamicPage extends Extension {
                 'description' => 'Select the colour of the loading bar shown when navigating between dynamic pages.',
             ]
         );
+    }
+
+    protected function loadFeatures(): void {
+        // Set the assets structure for this extension.
+        $this->assetsStructure = '/{location}/*.{extension}';
+
+        $this->loadAssets(true);
+        $this->loadComponents();
+        $this->loadViews();
     }
 }

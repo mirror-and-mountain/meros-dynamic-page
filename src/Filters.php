@@ -3,22 +3,15 @@
 namespace MM\Meros\DynamicPage;
 
 use Illuminate\Support\Str;
-use MM\Meros\Helpers\Theme\Filters;
 
-class MerosDynamicPageFilters extends Filters {
-
-    public function register(): void {
-        $this->add('template_include', [$this, 'includeTemplate'], 10, 3);
-        $this->add('render_block', [$this, 'renderCompatibleBlocks'], 10, 2);
-    }
-
+class Filters {
     /**
      * Includes the dynamic page template if enabled
      *
      * @param string $template
      * @return string
      */
-    public function includeTemplate(string $template): ?string {
+    public static function includeTemplate(string $template): ?string {
         if (Str::endsWith($template, 'template-canvas.php')) {
             // I'm not 100% sure why I need to call this, but block spacing seems to suffer if I don't!
             $template_html    = get_the_block_template_html();
@@ -40,7 +33,7 @@ class MerosDynamicPageFilters extends Filters {
      * @param array $block The block being rendered.
      * @return string The updated HTML content of the block.
      */
-    public function renderCompatibleBlocks(string $block_content, array $block): string {
+    public static function renderCompatibleBlocks(string $block_content, array $block): string {
         $attrs = $block['attrs'] ?? null;
     
         if (!is_array($attrs)) { return $block_content; }
