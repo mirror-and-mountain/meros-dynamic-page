@@ -2,16 +2,16 @@
 
 namespace MM\Meros\DynamicPage;
 
-use MM\Meros\Contracts\Extension;
+use MM\Meros\App\Services\Theme\Package;
 
-class MerosDynamicPage extends Extension {
+class MerosDynamicPage extends Package {
     protected string $authorName = "Meros";
     protected string $authorUrl = "https://merosblocks.com";
     protected string $authorSupportUrl = "https://merosblocks.com/support";
     protected string $description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua';
     public bool $experimental = true;
 
-    protected function addFilters(): void {
+    protected function configure(): void {
         $this->addFilter('template_include', [Filters::class, 'includeTemplate'], 10, 3);
         $this->addFilter('render_block', [Filters::class, 'renderCompatibleBlocks'], 10, 2);
     }
