@@ -5,10 +5,11 @@ namespace MM\Meros\DynamicPage;
 use MM\Meros\App\Services\Theme\Package;
 
 class MerosDynamicPage extends Package {
-    protected string $authorName = "Meros";
-    protected string $authorUrl = "https://merosblocks.com";
-    protected string $authorSupportUrl = "https://merosblocks.com/support";
-    protected string $description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua';
+    public string $author           = "Meros";
+    public string $authorUri        = "https://merosblocks.com";
+    public string $authorSupportUri = "https://merosblocks.com/support";
+    public string $description      = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua';
+    
     public bool $experimental = true;
 
     protected function configure(): void {
@@ -32,12 +33,12 @@ class MerosDynamicPage extends Package {
         );
     }
 
-    protected function loadFeatures(): void {
+    protected function discover(): void {
         // Set the assets structure for this extension.
         $this->assetsStructure = '/{location}/*.{extension}';
 
-        $this->loadAssets(true);
-        $this->loadComponents();
-        $this->loadViews();
+        $this->discoverAssets(true);
+        $this->discoverComponents();
+        $this->discoverViews();
     }
 }
