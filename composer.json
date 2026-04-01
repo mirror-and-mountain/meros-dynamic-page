@@ -18,8 +18,7 @@
     },
     "extra": {
         "meros": {
-            "loader": "MerosDynamicPage",
-            "namespace": "MM\\Meros\\DynamicPage"
+            "provider": "MM\\Meros\\DynamicPage\\ServiceProvider"
         }
     },
     "minimum-stability": "stable",
